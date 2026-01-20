@@ -5,10 +5,11 @@ let URI = ENV_VARS.MONGO_URI;
 
 const databaseConnecting = async () => {
   try {
-    await mongoose.connect(URI);
-    console.log("Mongoose connected successfully");
+    const connect = await mongoose.connect(URI);
+    console.log("MongoDb connected ", connect.connection.host);
   } catch (error) {
-    console.log("Mongoose faild to connect", error);
+    console.log("MongoDb faild to connect", error);
+    process.exit(1);
   }
 };
 

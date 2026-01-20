@@ -10,6 +10,6 @@ app.use(express.json());
 app.use("/api", userRoutes);
 
 app.listen(PORT, () => {
-  console.log("server listening on port 5000");
+  console.log(`Server listening on port ${PORT}`);
   databaseConnecting();
 });
