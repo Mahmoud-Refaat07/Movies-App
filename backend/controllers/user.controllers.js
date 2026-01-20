@@ -31,7 +31,30 @@ export const signup = async (req, res) => {
   }
 };
 
-export const login = async (req, res) => {};
+export const login = async (req, res) => {
+  const { email, password } = req.body;
+  try {
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(401).json({ message: "email not found" });
+    }
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(401).json({ message: "password do not match" });
+    }
+
+    const { password: _, ...userData } = user._doc;
+
+    const token = jwt.sign({ id: user._id }, ENV_VARS.JWT_SECRET_KEY, {
+      expiresIn: "7d",
+    });
+
+    res.json({ message: "logged in", user: userData, token });
+  } catch (error) {
+    console.log("Error Login Endpoint", error);
+    res.status(500).json({ message: "Server Error" });
+  }
+};
 
 export const logout = (req, res) => {
   res.json("logout");
