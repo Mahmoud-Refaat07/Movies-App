@@ -75,10 +75,11 @@ export const login = async (req, res) => {
 };
 
 export const logout = (req, res) => {
-  res.json("logout");
+  try {
+    res.clearCookie("token-movie");
+    res.status(200).json({ message: "logged out successfully" });
+  } catch (error) {
+    console.log("Error logout endpoint", error.message);
+    res.status(500).json({ message: "Server Error" });
+  }
 };
-
-// validation
-// added image default when creating user
-// some enhancment in hide password
-// refactoring token and set cookies
