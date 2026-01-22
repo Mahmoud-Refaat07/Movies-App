@@ -27,7 +27,7 @@ export const movieTrailers = async (req, res) => {
     res.json({ message: "Fetching successed", movieTrailler: trailer.results });
   } catch (error) {
     if (error.message.includes("404")) {
-      return res.status(404).send(null);
+      return res.status(404).json({ message: "Not Found" });
     }
     console.log("Failed to fetch movie trailer" + error.message);
     res.status(500).json({ message: "Server Error" });
@@ -49,6 +49,9 @@ export const movieDetails = async (req, res) => {
       movieDetails: movieDetails,
     });
   } catch (error) {
+    if (error.message.includes("404")) {
+      return res.status(404).json({ message: "Not Found" });
+    }
     console.log("Failed to fetch movie details" + error.message);
     res.status(500).json({ message: "Server Error" });
   }
@@ -64,6 +67,9 @@ export const similarMovies = async (req, res) => {
 
     res.json({ message: "Fetching Successed", similarMovies });
   } catch (error) {
+    if (error.message.includes("404")) {
+      return res.status(404).json({ message: "Not Found" });
+    }
     console.log("Failed to fetch similar movies" + error.message);
     res.status(500).json({ message: "Server Error" });
   }
@@ -78,6 +84,9 @@ export const MoviesByCategories = async (req, res) => {
 
     res.json({ message: "Fetching Successed", movie });
   } catch (error) {
+    if (error.message.includes("404")) {
+      return res.status(404).json({ message: "Not Found" });
+    }
     console.log("Failed to fetch movie" + error.message);
     res.status(500).json({ message: "Server Error" });
   }
