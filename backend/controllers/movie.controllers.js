@@ -17,6 +17,23 @@ export const trendingMovie = async (req, res) => {
   }
 };
 
+export const moviesByCategories = async (req, res) => {
+  const { category } = req.params;
+  try {
+    const movie = await fetchFromTMDB(
+      `https://api.themoviedb.org/3/movie/${category}?language=en-US&page=1`,
+    );
+
+    res.json({ message: "Fetching Successed", movie });
+  } catch (error) {
+    if (error.message.includes("404")) {
+      return res.status(404).json({ message: "Not Found" });
+    }
+    console.log("Failed to fetch movie" + error.message);
+    res.status(500).json({ message: "Server Error" });
+  }
+};
+
 export const movieTrailers = async (req, res) => {
   const { id } = req.params;
   try {
@@ -41,8 +58,6 @@ export const movieDetails = async (req, res) => {
     const movieDetails = await fetchFromTMDB(
       `https://api.themoviedb.org/3/movie/${id}?language=en-US`,
     );
-
-    console.log(movieDetails);
 
     res.json({
       message: "Fetching Successed",
@@ -71,23 +86,6 @@ export const similarMovies = async (req, res) => {
       return res.status(404).json({ message: "Not Found" });
     }
     console.log("Failed to fetch similar movies" + error.message);
-    res.status(500).json({ message: "Server Error" });
-  }
-};
-
-export const MoviesByCategories = async (req, res) => {
-  const { category } = req.params;
-  try {
-    const movie = await fetchFromTMDB(
-      `https://api.themoviedb.org/3/movie/${category}?language=en-US&page=1`,
-    );
-
-    res.json({ message: "Fetching Successed", movie });
-  } catch (error) {
-    if (error.message.includes("404")) {
-      return res.status(404).json({ message: "Not Found" });
-    }
-    console.log("Failed to fetch movie" + error.message);
     res.status(500).json({ message: "Server Error" });
   }
 };

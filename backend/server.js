@@ -1,6 +1,7 @@
 import express from "express";
 import userRoutes from "./routes/user.routes.js";
 import movieRoutes from "./routes/movie.routes.js";
+import tvRoutes from "./routes/tv.routes.js";
 import databaseConnecting from "./utils/database.js";
 import { ENV_VARS } from "./config/envVars.js";
 
@@ -11,6 +12,7 @@ app.use(express.json());
 
 app.use("/api/auth", userRoutes);
 app.use("/api/movie", movieRoutes);
+app.use("/api/tv", tvRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`);
