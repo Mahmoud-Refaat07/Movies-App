@@ -8,8 +8,6 @@ export const trendingMovie = async (req, res) => {
     const randomMovie =
       movie.results[Math.floor(Math.random() * movie.results?.length)];
 
-    console.log(randomMovie);
-
     res.json({ message: "Fetching Successed", movie: randomMovie });
   } catch (error) {
     console.log("Failed to fetch movie" + error.message);

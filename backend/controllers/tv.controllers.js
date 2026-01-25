@@ -7,8 +7,6 @@ export const trendingTv = async (req, res) => {
     );
     const randomTv = tv.results[Math.floor(Math.random() * tv.results?.length)];
 
-    console.log(randomTv);
-
     res.json({ message: "Fetching Successed", movie: randomTv });
   } catch (error) {
     console.log("Failed to fetch tv" + error.message);
