@@ -1,10 +1,16 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { ChevronRight } from "lucide-react";
 import { motion } from "framer-motion";
 
 const AuthScreen = () => {
   const [email, setEmail] = useState("");
+  const navigate = useNavigate();
+
+  const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    navigate("/signup?email=" + email);
+  };
   return (
     <div className="relative hero-bg ">
       {/* NavBar Section */}
@@ -41,7 +47,10 @@ const AuthScreen = () => {
         >
           Ready to watch? Enter your email to create or restart your membership.
         </motion.p>
-        <form className="flex flex-col justify-center md:flex-row gap-4 w-1/2">
+        <form
+          className="flex flex-col justify-center md:flex-row gap-4 w-1/2"
+          onSubmit={handleFormSubmit}
+        >
           <motion.input
             initial={{ x: -600 }}
             animate={{ x: 0 }}

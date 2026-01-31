@@ -7,8 +7,11 @@ import useAuthStore from "../store/useAuthStore";
 import Loader from "../components/Loader";
 
 const SignupPage = () => {
+  const { searchParams } = new URL(document.location.href);
+  const emailValue = searchParams.get("email");
+
   const [userData, setUserData] = useState({
-    email: "",
+    email: emailValue || "",
     username: "",
     password: "",
   });
@@ -19,10 +22,6 @@ const SignupPage = () => {
     e.preventDefault();
     signup(userData);
   };
-
-  if (loading) {
-    return <Loader />;
-  }
 
   return (
     <div className="hero-bg h-screen w-full">
@@ -42,7 +41,7 @@ const SignupPage = () => {
           <h1 className="text-center text-white text-2xl font-bold mb-4">
             Sign Up
           </h1>
-          <form className="space-y-4">
+          <form className="space-y-4" onSubmit={handleSubmit}>
             <Input
               id="email"
               type="email"
@@ -73,7 +72,7 @@ const SignupPage = () => {
                 setUserData({ ...userData, password: e.currentTarget.value })
               }
             />
-            <Button content="Sign Up" handleSubmit={handleSubmit} />
+            <Button content="Sign Up" />
             <div className="text-center text-gray-400 ">
               Already a member?{" "}
               <Link to="/login" className="text-red-500 hover:underline">

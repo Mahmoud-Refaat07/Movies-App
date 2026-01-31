@@ -3,16 +3,22 @@ import Button from "../components/Button";
 import Input from "../components/Input";
 import { motion } from "framer-motion";
 import { useState } from "react";
+import useAuthStore from "../store/useAuthStore";
+import Loader from "../components/Loader";
 
 const LoginPage = () => {
   const [userData, setUserData] = useState({
     email: "",
     password: "",
   });
+
+  const { login, loading } = useAuthStore();
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(userData);
+    login(userData);
   };
+
   return (
     <div className="hero-bg h-screen w-full">
       <header className="flex justify-between mx-auto w-full max-w-6xl p-4">
@@ -28,7 +34,7 @@ const LoginPage = () => {
           <h1 className="text-center text-white text-2xl font-bold mb-4">
             Login
           </h1>
-          <form className="space-y-4">
+          <form className="space-y-4" onSubmit={handleSubmit}>
             <Input
               id="email"
               type="email"
@@ -49,7 +55,7 @@ const LoginPage = () => {
                 setUserData({ ...userData, password: e.currentTarget.value })
               }
             />
-            <Button content="Log In" handleSubmit={handleSubmit} />
+            <Button content="Log In" />
 
             <div className="text-center text-gray-400 ">
               Don't have an account?{" "}

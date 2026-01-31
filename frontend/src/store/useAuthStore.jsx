@@ -24,29 +24,36 @@ const useAuthStore = create((set) => ({
     try {
       const response = await axiosInstance.post("/auth/signup", userData);
       set({ loading: false, user: response.data.user });
-      toast.success(response.data.message);
-      return { success: true };
+      toast.success("User created successfully");
     } catch (error) {
-      set({ loading: false });
+      set({ loading: false, user: null });
       toast.error(error.response.data.message);
       console.log("Error in signup function", response.data.message);
-      return { success: false };
     }
   },
 
-  login: async () => {},
+  login: async (userData) => {
+    set({ loading: true });
+    try {
+      const response = await axiosInstance.post("/auth/login", userData);
+      set({ loading: false, user: response.data.user });
+      toast.success("Logged in successfully");
+    } catch (error) {
+      set({ loading: false, user: null });
+      toast.error(error.response.data.message);
+      console.log("Error in login function", response.data.message);
+    }
+  },
 
   logout: async () => {
     set({ loading: true });
     try {
       await axiosInstance.post("/auth/logout");
-      set({ loading: false, user: null });
+      set({ loading: false });
       toast.success("Logged out");
-      return { success: true };
     } catch (error) {
       toast.error(error.response.data.message);
       console.log("Error in logout function", response.data.message);
-      return { success: false };
     }
   },
 }));
