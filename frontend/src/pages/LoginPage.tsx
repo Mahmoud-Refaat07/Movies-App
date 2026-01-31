@@ -1,7 +1,72 @@
-import React from "react";
+import { Link } from "react-router-dom";
+import Button from "../components/Button";
+import Input from "../components/Input";
+import { motion } from "framer-motion";
+import { useState } from "react";
 
 const LoginPage = () => {
-  return <div>LoginPage</div>;
+  const [userData, setUserData] = useState({
+    email: "",
+    password: "",
+  });
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    console.log(userData);
+  };
+  return (
+    <div className="hero-bg h-screen w-full">
+      <motion.header
+        className="flex justify-between mx-auto w-full max-w-6xl p-4"
+        initial={{ x: -1000 }}
+        animate={{ x: 0 }}
+        transition={{ duration: 0.6 }}
+      >
+        <img src="/netflix-logo.png" alt="logo" className="w-54" />
+      </motion.header>
+      <div className="flex items-center justify-center mt-20">
+        <motion.div
+          className="w-full max-w-md  bg-black/60 shadow-md p-4 rounded-lg"
+          initial={{ y: 20 }}
+          animate={{ y: 0 }}
+          transition={{ duration: 0.3 }}
+        >
+          <h1 className="text-center text-white text-2xl font-bold mb-4">
+            Login
+          </h1>
+          <form className="space-y-4">
+            <Input
+              id="email"
+              type="email"
+              label="Email"
+              placeholder="you@example.com"
+              value={userData.email}
+              onChange={(e) =>
+                setUserData({ ...userData, email: e.currentTarget.value })
+              }
+            />
+            <Input
+              id="password"
+              type="password"
+              label="Password"
+              placeholder="*******"
+              value={userData.password}
+              onChange={(e) =>
+                setUserData({ ...userData, password: e.currentTarget.value })
+              }
+            />
+            <Button content="Log In" handleSubmit={handleSubmit} />
+
+            <div className="text-center text-gray-400 ">
+              Don't have an account?{" "}
+              <Link to="/signup" className="text-red-500 hover:underline">
+                Sign Up
+              </Link>
+            </div>
+          </form>
+        </motion.div>
+      </div>
+    </div>
+  );
 };
 
 export default LoginPage;
