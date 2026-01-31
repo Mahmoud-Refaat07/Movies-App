@@ -1,12 +1,12 @@
 import User from "../models/user.model.js";
-import jwt from "jsonwebtoken";
+import jwt, { decode } from "jsonwebtoken";
 
 import { ENV_VARS } from "../config/envVars.js";
 
 export const protect = async (req, res, next) => {
   try {
-    const token =
-      req.cookies["token-movie"] || req.headers.authorization?.split(" ")[1];
+    const token = req.cookies["token-movie"];
+    console.log(token);
     if (!token) {
       return res.status(401).json({
         message: "Unauthorized - Token Not Found",
@@ -15,7 +15,9 @@ export const protect = async (req, res, next) => {
 
     const decoded = jwt.verify(token, ENV_VARS.JWT_SECRET_KEY);
 
+    console.log(decoded.userId);
     req.user = await User.findById(decoded.userId).select("-password");
+    console.log(req.user);
 
     if (!req.user) {
       return res.status(401).json({
