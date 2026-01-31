@@ -1,8 +1,9 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import Input from "../components/Input";
 import Button from "../components/Button";
 import { useState } from "react";
+import useAuthStore from "../store/useAuthStore";
 
 const SignupPage = () => {
   const [userData, setUserData] = useState({
@@ -11,10 +12,13 @@ const SignupPage = () => {
     password: "",
   });
 
+  const { user, signup } = useAuthStore();
+
+  const navigate = useNavigate();
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("submitted");
-    console.log(userData);
+    signup(userData);
   };
   return (
     <div className="hero-bg h-screen w-full">

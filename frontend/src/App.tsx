@@ -1,4 +1,5 @@
 import { Route, Routes } from "react-router-dom";
+import { Toaster } from "react-hot-toast";
 
 import HomePage from "./pages/Home/HomePage";
 import LoginPage from "./pages/LoginPage";
@@ -14,6 +15,9 @@ const App = () => {
         <Route path="/signup" element={<SignUpPage />} />
       </Routes>
       <Footer />
+      <div>
+        <Toaster />
+      </div>
     </>
   );
 };
