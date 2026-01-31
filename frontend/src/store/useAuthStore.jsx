@@ -11,9 +11,11 @@ const useAuthStore = create((set) => ({
     try {
       const response = await axiosInstance.get("/auth/me");
       set({ loading: false, user: response.data.user });
+      return { success: true };
     } catch (error) {
       set({ loading: false, user: null });
       console.log("Error in checkAuth function", error.response.data.message);
+      return { success: false };
     }
   },
 
@@ -22,12 +24,13 @@ const useAuthStore = create((set) => ({
     try {
       const response = await axiosInstance.post("/auth/signup", userData);
       set({ loading: false, user: response.data.user });
-      console.log(response.data.message);
       toast.success(response.data.message);
+      return { success: true };
     } catch (error) {
       set({ loading: false });
       toast.error(error.response.data.message);
       console.log("Error in signup function", response.data.message);
+      return { success: false };
     }
   },
   login: async () => {},

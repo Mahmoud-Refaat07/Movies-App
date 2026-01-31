@@ -1,9 +1,10 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import Input from "../components/Input";
 import Button from "../components/Button";
 import { useState } from "react";
 import useAuthStore from "../store/useAuthStore";
+import Loader from "../components/Loader";
 
 const SignupPage = () => {
   const [userData, setUserData] = useState({
@@ -12,14 +13,17 @@ const SignupPage = () => {
     password: "",
   });
 
-  const { user, signup } = useAuthStore();
-
-  const navigate = useNavigate();
+  const { user, signup, loading } = useAuthStore();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     signup(userData);
   };
+
+  if (loading) {
+    return <Loader />;
+  }
+
   return (
     <div className="hero-bg h-screen w-full">
       <header className="max-w-6xl mx-auto  flex items-center justify-between p-4">
