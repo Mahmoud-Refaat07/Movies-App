@@ -18,16 +18,11 @@ const SignupPage = () => {
   };
   return (
     <div className="hero-bg h-screen w-full">
-      <motion.header
-        className="max-w-6xl mx-auto  flex items-center justify-between p-4"
-        initial={{ x: -1000 }}
-        animate={{ x: 0 }}
-        transition={{ duration: 0.6 }}
-      >
+      <header className="max-w-6xl mx-auto  flex items-center justify-between p-4">
         <Link to="/">
           <img src="/netflix-logo.png" alt="logo" className="w-52" />
         </Link>
-      </motion.header>
+      </header>
 
       <div className="flex items-center justify-center mt-20 mx-3">
         <motion.div

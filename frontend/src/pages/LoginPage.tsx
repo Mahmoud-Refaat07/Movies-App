@@ -15,14 +15,9 @@ const LoginPage = () => {
   };
   return (
     <div className="hero-bg h-screen w-full">
-      <motion.header
-        className="flex justify-between mx-auto w-full max-w-6xl p-4"
-        initial={{ x: -1000 }}
-        animate={{ x: 0 }}
-        transition={{ duration: 0.6 }}
-      >
+      <header className="flex justify-between mx-auto w-full max-w-6xl p-4">
         <img src="/netflix-logo.png" alt="logo" className="w-54" />
-      </motion.header>
+      </header>
       <div className="flex items-center justify-center mt-20">
         <motion.div
           className="w-full max-w-md  bg-black/60 shadow-md p-4 rounded-lg"
