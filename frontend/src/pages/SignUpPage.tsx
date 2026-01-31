@@ -22,7 +22,7 @@ const SignupPage = () => {
         className="max-w-6xl mx-auto  flex items-center justify-between p-4"
         initial={{ x: -1000 }}
         animate={{ x: 0 }}
-        transition={{ duration: 1 }}
+        transition={{ duration: 0.6 }}
       >
         <Link to="/">
           <img src="/netflix-logo.png" alt="logo" className="w-52" />
@@ -34,7 +34,7 @@ const SignupPage = () => {
           className="w-full max-w-md p-8 bg-black/60 rounded-lg shadow-md"
           initial={{ y: 20 }}
           animate={{ y: 0 }}
-          transition={{ duration: 1 }}
+          transition={{ duration: 0.3 }}
         >
           <h1 className="text-center text-white text-2xl font-bold mb-4">
             Sign Up
@@ -70,12 +70,7 @@ const SignupPage = () => {
                 setUserData({ ...userData, password: e.currentTarget.value })
               }
             />
-            <motion.div
-              whileHover={{ scale: 1.03 }}
-              transition={{ duration: 0.2 }}
-            >
-              <Button content="Sign Up" handleSubmit={handleSubmit} />
-            </motion.div>
+            <Button content="Sign Up" handleSubmit={handleSubmit} />
             <div className="text-center text-gray-400 ">
               Already a member?{" "}
               <Link to="/login" className="text-red-500 hover:underline">
