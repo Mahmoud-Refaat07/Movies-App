@@ -7,12 +7,19 @@ import searchRoutes from "./routes/search.routes.js";
 import databaseConnecting from "./utils/database.js";
 import { ENV_VARS } from "./config/envVars.js";
 import { protect } from "./middlewares/auth.middleware.js";
+import cors from "cors";
 
 const app = express();
 const PORT = ENV_VARS.PORT || 5000;
 
 app.use(express.json());
 app.use(cookieParser());
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    credentials: true,
+  }),
+);
 
 app.use("/api/auth", userRoutes);
 app.use("/api/movie", protect, movieRoutes);
