@@ -35,7 +35,7 @@ export const signup = async (req, res) => {
 
     res.json({
       message: "User Created",
-      User: {
+      user: {
         ...user._doc,
         password: undefined,
       },
