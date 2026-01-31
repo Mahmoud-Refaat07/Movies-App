@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import Input from "../../components/Input";
 import { useState } from "react";
 import { ChevronRight } from "lucide-react";
 import { motion } from "framer-motion";
@@ -18,9 +17,10 @@ const AuthScreen = () => {
       {/* Hero Section */}
       <div className="flex flex-col items-center justify-center text-center py-40 text-white max-w-6xl mx-auto">
         <motion.h1
-          initial={{ x: -800 }}
-          animate={{ x: 0 }}
-          transition={{ duration: 0.6 }}
+          initial={{ opacity: 0, y: -50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
           className="text-4xl md:text-6xl font-bold mb-4"
         >
           Unlimited movies, TV shows, and more
