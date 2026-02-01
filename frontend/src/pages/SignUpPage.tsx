@@ -4,7 +4,6 @@ import Input from "../components/Input";
 import Button from "../components/Button";
 import { useState } from "react";
 import useAuthStore from "../store/useAuthStore";
-import Loader from "../components/Loader";
 
 const SignupPage = () => {
   const { searchParams } = new URL(document.location.href);

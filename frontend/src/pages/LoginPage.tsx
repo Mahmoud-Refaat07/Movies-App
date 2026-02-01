@@ -4,7 +4,6 @@ import Input from "../components/Input";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import useAuthStore from "../store/useAuthStore";
-import Loader from "../components/Loader";
 
 const LoginPage = () => {
   const [userData, setUserData] = useState({

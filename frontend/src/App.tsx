@@ -1,4 +1,4 @@
-import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 
 import HomePage from "./pages/Home/HomePage";
@@ -14,7 +14,7 @@ const App = () => {
 
   useEffect(() => {
     checkAuth();
-  }, [checkAuth, user]);
+  }, [checkAuth]);
 
   return (
     <>
