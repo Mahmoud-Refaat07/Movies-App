@@ -8,7 +8,7 @@ export const trendingMovie = async (req, res) => {
     const randomMovie =
       movie.results[Math.floor(Math.random() * movie.results?.length)];
 
-    res.json({ message: "Fetching Successed", movie: randomMovie });
+    res.json({ message: "Fetching Successed", content: randomMovie });
   } catch (error) {
     console.log("Failed to fetch movie" + error.message);
     res.status(500).json({ message: "Server Error" });
@@ -22,7 +22,7 @@ export const moviesByCategories = async (req, res) => {
       `https://api.themoviedb.org/3/movie/${category}?language=en-US&page=1`,
     );
 
-    res.json({ message: "Fetching Successed", movie });
+    res.json({ message: "Fetching Successed", content: movie });
   } catch (error) {
     if (error.message.includes("404")) {
       return res.status(404).json({ message: "Not Found" });
@@ -39,7 +39,7 @@ export const movieTrailers = async (req, res) => {
       `https://api.themoviedb.org/3/movie/${id}/videos?language=en-US`,
     );
 
-    res.json({ message: "Fetching successed", movieTrailler: trailer.results });
+    res.json({ message: "Fetching successed", content: trailer.results });
   } catch (error) {
     if (error.message.includes("404")) {
       return res.status(404).json({ message: "Not Found" });
@@ -59,7 +59,7 @@ export const movieDetails = async (req, res) => {
 
     res.json({
       message: "Fetching Successed",
-      movieDetails: movieDetails,
+      content: movieDetails,
     });
   } catch (error) {
     if (error.message.includes("404")) {
@@ -78,7 +78,7 @@ export const similarMovies = async (req, res) => {
       `https://api.themoviedb.org/3/movie/${id}/similar?language=en-US&page=1`,
     );
 
-    res.json({ message: "Fetching Successed", similarMovies });
+    res.json({ message: "Fetching Successed", content: similarMovies });
   } catch (error) {
     if (error.message.includes("404")) {
       return res.status(404).json({ message: "Not Found" });

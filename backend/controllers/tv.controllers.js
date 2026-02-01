@@ -7,7 +7,7 @@ export const trendingTv = async (req, res) => {
     );
     const randomTv = tv.results[Math.floor(Math.random() * tv.results?.length)];
 
-    res.json({ message: "Fetching Successed", movie: randomTv });
+    res.json({ message: "Fetching Successed", content: randomTv });
   } catch (error) {
     console.log("Failed to fetch tv" + error.message);
     res.status(500).json({ message: "Server Error" });
@@ -21,7 +21,7 @@ export const tvsByCategories = async (req, res) => {
       `https://api.themoviedb.org/3/tv/${category}?language=en-US&page=1`,
     );
 
-    res.json({ message: "Fetching Successed", tv });
+    res.json({ message: "Fetching Successed", content: tv });
   } catch (error) {
     if (error.message.includes("404")) {
       return res.status(404).json({ message: "Not Found" });
@@ -38,7 +38,7 @@ export const tvTrailers = async (req, res) => {
       `https://api.themoviedb.org/3/tv/${id}/videos?language=en-US`,
     );
 
-    res.json({ message: "Fetching successed", tvTrailers: trailer.results });
+    res.json({ message: "Fetching successed", content: trailer.results });
   } catch (error) {
     if (error.message.includes("404")) {
       return res.status(404).json({ message: "Not Found" });
@@ -58,7 +58,7 @@ export const tvDetails = async (req, res) => {
 
     res.json({
       message: "Fetching Successed",
-      tvDetails,
+      content: tvDetails,
     });
   } catch (error) {
     if (error.message.includes("404")) {
@@ -79,7 +79,7 @@ export const similarTvs = async (req, res) => {
 
     res.json({
       message: "Fetching Successed",
-      similarMovies: similarTv.results,
+      content: similarTv.results,
     });
   } catch (error) {
     if (error.message.includes("404")) {
