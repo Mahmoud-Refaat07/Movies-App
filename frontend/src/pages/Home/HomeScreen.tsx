@@ -9,18 +9,19 @@ import {
 } from "../../utils/constants";
 import useContentStore from "../../store/useContentStore";
 import MovieSlider from "../../components/MovieSlider";
+import { useState } from "react";
 
 const HomeScreen = () => {
   const { trendingContent } = useGetTrendingContent();
   const { contentType } = useContentStore();
 
+  const [imgLoading, setImgLoading] = useState<boolean>(true);
+
   if (!trendingContent) {
     return (
       <div className="h-screen text-white relative">
         <Navbar />
-        <div className="absolute top-0 left-0 w-full h-full bg-black flex items-center justify-center -z-10 ">
-          <Loader className="size-12 animate-spin text-red-500" />
-        </div>
+        <div className="absolute top-0 left-0 w-full h-full bg-black flex items-center justify-center -z-10 shimmer"></div>
       </div>
     );
   }
@@ -30,10 +31,17 @@ const HomeScreen = () => {
       <div className="relative h-screen text-white ">
         <Navbar />
 
+        {imgLoading && (
+          <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center -z-10 shimmer"></div>
+        )}
+
         <img
           src={ORIGINAL_IMAGE_BASE_URL + trendingContent?.backdrop_path}
           alt="Hero image"
           className="absolute top-0 w-full h-full object-cover -z-50"
+          onLoad={() => {
+            setImgLoading(false);
+          }}
         />
         <div
           className="absolute top-0 left-0 w-full h-full bg-black/50 -z-50"
@@ -87,10 +95,10 @@ const HomeScreen = () => {
       </div>
       <div className="flex flex-col gap-10 bg-black py-10">
         {contentType === "movie"
-          ? MOVIE_CATEGORIES.map((category) => (
+          ? MOVIE_CATEGORIES.map((category: string) => (
               <MovieSlider key={category} category={category} />
             ))
-          : TV_SERIES_CATEGORIES.map((category) => (
+          : TV_SERIES_CATEGORIES.map((category: string) => (
               <MovieSlider key={category} category={category} />
             ))}
       </div>

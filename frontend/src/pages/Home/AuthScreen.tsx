@@ -4,7 +4,7 @@ import { ChevronRight } from "lucide-react";
 import { motion } from "framer-motion";
 
 const AuthScreen = () => {
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState<string>("");
   const navigate = useNavigate();
 
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {

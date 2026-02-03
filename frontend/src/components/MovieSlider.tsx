@@ -17,7 +17,7 @@ interface contentItem {
 }
 
 const MovieSlider = ({ category }: categoryProps) => {
-  const [content, setContent] = useState([]);
+  const [content, setContent] = useState<[]>([]);
   const [showArrors, setShowArrors] = useState<boolean>(false);
 
   const { contentType } = useContentStore();
