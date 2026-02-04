@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useRef, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import useContentStore from "../store/useContentStore";
 import Navbar from "../components/Navbar";
 import { ChevronLeft, ChevronRight } from "lucide-react";
@@ -45,6 +45,8 @@ const WatchPage = () => {
   const [showArrors, setShowArrors] = useState<boolean>(false);
   const { id } = useParams();
   const { contentType } = useContentStore();
+  const { pathname } = useLocation();
+  const sliderRef = useRef<HTMLDivElement>(null);
 
   const handleNext = () => {
     if (currentTrailerIdx < trailers.length - 1)
@@ -53,9 +55,6 @@ const WatchPage = () => {
   const handlePrev = () => {
     if (currentTrailerIdx > 0) setCurrentTrailerIdx(currentTrailerIdx - 1);
   };
-
-  const sliderRef = useRef<HTMLDivElement>(null);
-
   const scrollLeft = () => {
     if (sliderRef.current) {
       sliderRef.current.scrollBy({
@@ -121,10 +120,32 @@ const WatchPage = () => {
     getContentDetails();
   }, [contentType, id]);
 
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }, [pathname]);
+
   if (loading) {
     return (
       <div className="bg-black min-h-screen p-10">
         <WatchPageSkeleton />
+      </div>
+    );
+  }
+
+  if (!contentDetails) {
+    return (
+      <div className="bg-black text-white h-screen">
+        <div className="max-w-6xl mx-auto">
+          <Navbar />
+          <div className="text-center mx-auto px-4 h-full mt-40">
+            <h2 className="text-2xl sm:text-5xl font-bold text-balance">
+              Content not found
+            </h2>
+          </div>
+        </div>
       </div>
     );
   }
