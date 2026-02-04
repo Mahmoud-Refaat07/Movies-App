@@ -6,6 +6,7 @@ import Navbar from "../components/Navbar";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import ReactPlayer from "react-player";
 import { ORIGINAL_IMAGE_BASE_URL } from "../utils/constants";
+import { motion } from "framer-motion";
 
 interface contentDetails {
   title?: string;
@@ -151,9 +152,14 @@ const WatchPage = () => {
               </span>
             </h2>
           )}
-          <div
+          <motion.div
             className="flex flex-col md:flex-row items-center justify-between gap-20
-           max-w-6xl mx-auto"
+           max-w-6xl mx-auto mt-25"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 0 }}
+            transition={{ duration: 3 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: false }}
           >
             <div className="mb-4 md:mb-0 ">
               <h2 className="text-5xl font-bold text-balance">
@@ -178,9 +184,9 @@ const WatchPage = () => {
             <img
               src={ORIGINAL_IMAGE_BASE_URL + contentDetails?.poster_path}
               alt="poster"
-              className="max-h-150 rounded-md mt-25"
+              className="max-h-150 rounded-md "
             />
-          </div>
+          </motion.div>
         </div>
       </div>
     </div>

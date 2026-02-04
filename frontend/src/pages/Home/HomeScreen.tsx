@@ -10,6 +10,7 @@ import {
 import useContentStore from "../../store/useContentStore";
 import MovieSlider from "../../components/MovieSlider";
 import { useState } from "react";
+import { motion } from "framer-motion";
 
 const HomeScreen = () => {
   const { trendingContent } = useGetTrendingContent();
@@ -35,13 +36,16 @@ const HomeScreen = () => {
           <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center -z-10 shimmer"></div>
         )}
 
-        <img
+        <motion.img
           src={ORIGINAL_IMAGE_BASE_URL + trendingContent?.backdrop_path}
           alt="Hero image"
           className="absolute top-0 w-full h-full object-cover -z-50"
           onLoad={() => {
             setImgLoading(false);
           }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 3 }}
         />
         <div
           className="absolute top-0 left-0 w-full h-full bg-black/50 -z-50"

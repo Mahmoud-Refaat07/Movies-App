@@ -4,6 +4,7 @@ import useContentStore from "../store/useContentStore";
 import { Link } from "react-router-dom";
 import { SMALL_IMAGE_BASE_URL } from "../utils/constants";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { motion } from "framer-motion";
 
 interface categoryProps {
   category: string;
@@ -73,14 +74,30 @@ const MovieSlider = ({ category }: categoryProps) => {
             className="min-w-62.5 relative group"
             key={item.id}
           >
-            <div className="rounded-lg overflow-hidden">
+            <motion.div
+              className="rounded-lg overflow-hidden"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 0 }}
+              transition={{ duration: 1 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: false }}
+            >
               <img
                 src={SMALL_IMAGE_BASE_URL + item.backdrop_path}
                 alt="movie image"
                 className="transition-transform duration-300 ease-in-out group-hover:scale-125 "
               />
-            </div>
-            <p className="mt-2 text-center">{item.title || item.name}</p>
+            </motion.div>
+            <motion.p
+              className="mt-2 text-center"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 0 }}
+              transition={{ duration: 1 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: false }}
+            >
+              {item.title || item.name}
+            </motion.p>
           </Link>
         ))}
       </div>
