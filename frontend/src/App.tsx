@@ -6,8 +6,9 @@ import LoginPage from "./pages/LoginPage";
 import SignUpPage from "./pages/SignUpPage";
 import Footer from "./components/Footer";
 
-import useAuthStore from "./store/useAuthStore";
 import { useEffect } from "react";
+import WatchPage from "./pages/WatchPage";
+import useAuthStore from "./store/useAuthStore";
 
 const App = () => {
   const { user, checkAuth } = useAuthStore();
@@ -27,6 +28,10 @@ const App = () => {
         <Route
           path="/signup"
           element={user ? <Navigate to={"/"} /> : <SignUpPage />}
+        />
+        <Route
+          path="/watch/:id"
+          element={user ? <WatchPage /> : <LoginPage />}
         />
       </Routes>
       <Footer />
