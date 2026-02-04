@@ -1,12 +1,17 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
+import { Link, useParams } from "react-router-dom";
 import useContentStore from "../store/useContentStore";
 import Navbar from "../components/Navbar";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import ReactPlayer from "react-player";
-import { ORIGINAL_IMAGE_BASE_URL } from "../utils/constants";
+import {
+  ORIGINAL_IMAGE_BASE_URL,
+  SMALL_IMAGE_BASE_URL,
+} from "../utils/constants";
 import { motion } from "framer-motion";
+import { formatReleaseDate } from "../utils/dateFormat";
+import WatchPageSkeleton from "../components/WatchPageSkeleton";
 
 interface contentDetails {
   title?: string;
@@ -17,18 +22,14 @@ interface contentDetails {
   overview?: string;
   poster_path?: string;
 }
-
 interface Trailer {
   key: string;
 }
-
-function formatReleaseDate(date: string | undefined) {
-  if (!date) return "N/A";
-  return new Date(date).toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
+interface similarContentItem {
+  id: number;
+  title?: string;
+  name?: string;
+  poster_path: string;
 }
 
 const WatchPage = () => {
@@ -38,7 +39,10 @@ const WatchPage = () => {
   const [contentDetails, setContentDetails] = useState<null | contentDetails>(
     {},
   );
-  const [similarContent, setSimilarContent] = useState<[]>([]);
+  const [similarContent, setSimilarContent] = useState<similarContentItem[]>(
+    [],
+  );
+  const [showArrors, setShowArrors] = useState<boolean>(false);
   const { id } = useParams();
   const { contentType } = useContentStore();
 
@@ -50,11 +54,30 @@ const WatchPage = () => {
     if (currentTrailerIdx > 0) setCurrentTrailerIdx(currentTrailerIdx - 1);
   };
 
+  const sliderRef = useRef<HTMLDivElement>(null);
+
+  const scrollLeft = () => {
+    if (sliderRef.current) {
+      sliderRef.current.scrollBy({
+        left: -sliderRef.current.offsetWidth,
+        behavior: "smooth",
+      });
+    }
+  };
+  const scrollRight = () => {
+    if (sliderRef.current) {
+      sliderRef.current.scrollBy({
+        left: sliderRef.current.offsetWidth,
+        behavior: "smooth",
+      });
+    }
+  };
+
   useEffect(() => {
     const getTrailers = async () => {
       try {
         const response = await axios.get(`/api/${contentType}/${id}/trailers`);
-        setTrailers(response.data.content);
+        setTrailers(response.data?.content);
       } catch (error: any) {
         if (error.message.includes("404")) {
           setTrailers([]);
@@ -70,7 +93,7 @@ const WatchPage = () => {
     const getSimilarContent = async () => {
       try {
         const response = await axios.get(`/api/${contentType}/${id}/similar`);
-        setSimilarContent(response.data.content.results);
+        setSimilarContent(response.data?.content?.results);
       } catch (error: any) {
         if (error.message.includes("404")) {
           setSimilarContent([]);
@@ -86,7 +109,7 @@ const WatchPage = () => {
     const getContentDetails = async () => {
       try {
         const response = await axios.get(`/api/${contentType}/${id}/details`);
-        setContentDetails(response.data.content);
+        setContentDetails(response.data?.content);
       } catch (error: any) {
         if (error.message.includes("404")) {
           setContentDetails(null);
@@ -97,6 +120,14 @@ const WatchPage = () => {
     };
     getContentDetails();
   }, [contentType, id]);
+
+  if (loading) {
+    return (
+      <div className="bg-black min-h-screen p-10">
+        <WatchPageSkeleton />
+      </div>
+    );
+  }
 
   return (
     <div className="bg-black min-h-screen text-white">
@@ -188,6 +219,67 @@ const WatchPage = () => {
             />
           </motion.div>
         </div>
+        {similarContent.length > 0 && (
+          <div
+            className="mx-auto max-w-6xl mt-12 relative"
+            onMouseEnter={() => {
+              setShowArrors(true);
+            }}
+            onMouseLeave={() => setShowArrors(false)}
+          >
+            <h2 className="text-3xl font-bold mb-4">
+              Similar{" "}
+              {contentType === "movie"
+                ? contentType.charAt().toUpperCase() +
+                  contentType.slice(1) +
+                  "s"
+                : "TV Shows"}
+            </h2>
+            <motion.div
+              className="flex justify-center items-center gap-4 pb-4 group overflow-x-scroll scrollbar-hide"
+              ref={sliderRef}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 2 }}
+            >
+              {similarContent.map((item: similarContentItem) => {
+                if (!item.poster_path) return null;
+                return (
+                  <Link
+                    to={`/watch/${item.id}`}
+                    key={item.id}
+                    className="w-52 flex-none"
+                  >
+                    <img
+                      src={SMALL_IMAGE_BASE_URL + item.poster_path}
+                      alt="poster"
+                      className="w-full h-auto rounded-md"
+                    />
+                    <h4 className="mt-2 text-lg font-semibold">
+                      {item.title || item.name}{" "}
+                    </h4>
+                  </Link>
+                );
+              })}
+
+              {showArrors && (
+                <>
+                  <ChevronLeft
+                    className="absolute top-1/2 -translate-y-1/2  md:left-5  cursor-pointer
+           size-12 rounded-full bg-black/50 hover:bg-black/80 text-white z-10"
+                    onClick={scrollLeft}
+                  />
+
+                  <ChevronRight
+                    className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2  md:right-5 cursor-pointer
+           size-12 rounded-full bg-black/50 hover:bg-black/80 text-white z-10"
+                    onClick={scrollRight}
+                  />
+                </>
+              )}
+            </motion.div>
+          </div>
+        )}
       </div>
     </div>
   );
