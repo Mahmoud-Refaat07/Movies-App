@@ -22,8 +22,6 @@ const SearchPage = () => {
   const [searchedTvShows, setSearchedTvShows] = useState<searchProps[]>([]);
   const [searchedPeople, setSearchedPeople] = useState<searchProps[]>([]);
 
-  console.log(searchedMovies);
-
   const handleSearch = () => {
     if (!inputValue) return;
 
@@ -110,12 +108,16 @@ const SearchPage = () => {
                 if (item.backdrop_path === null) return null;
                 return (
                   <>
-                    <Link to={`/watch/${item.id}`} key={item.id}>
-                      <div className="overflow-hidden  rounded-lg">
+                    <Link
+                      to={`/watch/${item.id}`}
+                      key={item.id}
+                      className="bg-gray-800 px-4 py-6 rounded-lg"
+                    >
+                      <div className="overflow-hidden ">
                         <img
                           src={ORIGINAL_IMAGE_BASE_URL + item.backdrop_path}
                           alt="poster"
-                          className="flex-none max-w-96 h-100 object-cover rounded-md hover:scale-103 transition-transform duration-300 cursor-pointer bg-gray-800 px-4 py-8"
+                          className="flex-none max-w-96 h-100 object-cover  hover:scale-103 transition-transform duration-300 cursor-pointer "
                         />
                       </div>
 
