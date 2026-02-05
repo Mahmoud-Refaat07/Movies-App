@@ -260,8 +260,9 @@ const WatchPage = () => {
               className="flex justify-center items-center gap-4 pb-4 group overflow-x-scroll scrollbar-hide"
               ref={sliderRef}
               initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 2 }}
+              animate={{ opacity: 0 }}
+              transition={{ duration: 5 }}
+              whileInView={{ opacity: 1 }}
             >
               {similarContent.map((item: similarContentItem) => {
                 if (!item.poster_path) return null;

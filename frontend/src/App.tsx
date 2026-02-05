@@ -9,6 +9,7 @@ import Footer from "./components/Footer";
 import { useEffect } from "react";
 import WatchPage from "./pages/WatchPage";
 import useAuthStore from "./store/useAuthStore";
+import SearchPage from "./pages/SearchPage";
 
 const App = () => {
   const { user, checkAuth } = useAuthStore();
@@ -33,6 +34,7 @@ const App = () => {
           path="/watch/:id"
           element={user ? <WatchPage /> : <LoginPage />}
         />
+        <Route path="/search" element={user ? <SearchPage /> : <LoginPage />} />
       </Routes>
       <Footer />
       <div>
