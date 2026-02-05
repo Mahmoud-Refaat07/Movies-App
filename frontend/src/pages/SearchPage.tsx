@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Navbar from "../components/Navbar";
-import { Search } from "lucide-react";
+import { Loader, Search } from "lucide-react";
 import axios from "axios";
 import { ORIGINAL_IMAGE_BASE_URL } from "../utils/constants";
 import { Link } from "react-router-dom";
@@ -8,6 +8,8 @@ import { toast } from "react-hot-toast";
 
 interface searchProps {
   id: number;
+  title?: string;
+  name?: string;
   backdrop_path?: string;
   profile_path?: string;
 }
@@ -15,14 +17,18 @@ interface searchProps {
 const SearchPage = () => {
   const [category, setCategory] = useState<"movie" | "tv" | "person">("movie");
   const [inputValue, setInputValue] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
   const [searchedMovies, setSearchedMovies] = useState<searchProps[]>([]);
   const [searchedTvShows, setSearchedTvShows] = useState<searchProps[]>([]);
   const [searchedPeople, setSearchedPeople] = useState<searchProps[]>([]);
+
+  console.log(searchedMovies);
 
   const handleSearch = () => {
     if (!inputValue) return;
 
     const fetchingData = async () => {
+      setLoading(true);
       try {
         const response = await axios.get(
           `/api/search/${category}/${inputValue}`,
@@ -37,6 +43,8 @@ const SearchPage = () => {
         } else {
           toast.error("An error occurred while fetching data.");
         }
+      } finally {
+        setLoading(false);
       }
     };
     fetchingData();
@@ -90,51 +98,77 @@ const SearchPage = () => {
           onClick={handleSearch}
         />
       </div>
-      <div className="grid grid-cols-5 pb-4 group mt-10 gap-4 mx-2">
-        {category === "movie"
-          ? searchedMovies.length > 0 &&
-            searchedMovies.map((item) => {
-              if (item.backdrop_path === null) return null;
-              return (
-                <Link to={`/watch/${item.id}`} key={item.id}>
-                  <img
-                    src={ORIGINAL_IMAGE_BASE_URL + item.backdrop_path}
-                    alt="poster"
-                    className="w-full flex-none rounded-md hover:scale-105 transition-transform cursor-pointer border border-white"
-                  />
-                </Link>
-              );
-            })
-          : category === "tv"
-            ? searchedTvShows.map((item) => {
+      {loading === true ? (
+        <div className="flex justify-center items-center w-full h-screen  ">
+          <Loader size={24} className="animate-spin size-25 text-red-600" />
+        </div>
+      ) : (
+        <div className="flex flex-wrap justify-center pb-4 group mt-10 gap-4 mx-2">
+          {category === "movie"
+            ? searchedMovies.length > 0 &&
+              searchedMovies.map((item) => {
                 if (item.backdrop_path === null) return null;
                 return (
-                  <Link to={`/watch/${item.id}`} key={item.id}>
-                    <img
-                      src={ORIGINAL_IMAGE_BASE_URL + item.backdrop_path}
-                      alt="poster"
-                      className="w-full flex-none rounded-md hover:scale-105 transition-transform cursor-pointer border border-white"
-                    />
-                  </Link>
+                  <>
+                    <Link to={`/watch/${item.id}`} key={item.id}>
+                      <div className="overflow-hidden  rounded-lg">
+                        <img
+                          src={ORIGINAL_IMAGE_BASE_URL + item.backdrop_path}
+                          alt="poster"
+                          className="flex-none max-w-96 h-100 object-cover rounded-md hover:scale-103 transition-transform duration-300 cursor-pointer bg-gray-800 px-4 py-8"
+                        />
+                      </div>
+
+                      <h2 className="mt-2 text-xl font-bold text-center">
+                        {item.title || item.name}
+                      </h2>
+                    </Link>
+                  </>
                 );
               })
-            : searchedPeople.map((item) => {
-                if (item.profile_path === null) return null;
-                return (
-                  <Link
-                    to={`/watch/${item.id}`}
-                    key={item.id}
-                    className="px-2 py-6 bg-gray-700"
-                  >
-                    <img
-                      src={ORIGINAL_IMAGE_BASE_URL + item.profile_path}
-                      alt="poster"
-                      className="w-full flex-none rounded-md hover:scale-105 transition-transform cursor-pointer border border-white"
-                    />
-                  </Link>
-                );
-              })}
-      </div>
+            : category === "tv"
+              ? searchedTvShows.map((item) => {
+                  if (item.backdrop_path === null) return null;
+                  return (
+                    <>
+                      <Link to={`/watch/${item.id}`} key={item.id}>
+                        <div className="overflow-hidden  rounded-lg">
+                          <img
+                            src={ORIGINAL_IMAGE_BASE_URL + item.backdrop_path}
+                            alt="poster"
+                            className="flex-none max-w-96 h-100 object-cover rounded-md hover:scale-103 transition-transform duration-300 cursor-pointer bg-gray-800 px-4 py-8"
+                          />
+                        </div>
+
+                        <h2 className="mt-2 text-xl font-bold text-center">
+                          {item.title || item.name}
+                        </h2>
+                      </Link>
+                    </>
+                  );
+                })
+              : searchedPeople.map((item) => {
+                  if (item.profile_path === null) return null;
+                  return (
+                    <>
+                      <Link to={`/watch/${item.id}`} key={item.id}>
+                        <div className="overflow-hidden  rounded-lg">
+                          <img
+                            src={ORIGINAL_IMAGE_BASE_URL + item.profile_path}
+                            alt="poster"
+                            className="flex-none max-w-96 h-100 object-cover rounded-md hover:scale-103 transition-transform duration-300 cursor-pointer bg-gray-800 px-4 py-8"
+                          />
+                        </div>
+
+                        <h2 className="mt-2 text-xl font-bold text-center">
+                          {item.title || item.name}
+                        </h2>
+                      </Link>
+                    </>
+                  );
+                })}
+        </div>
+      )}
     </div>
   );
 };
