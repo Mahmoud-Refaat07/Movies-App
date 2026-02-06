@@ -91,10 +91,9 @@ const SearchPage = () => {
           onChange={(e) => setInputValue(e.currentTarget.value)}
           className="w-full p-2 bg-gray-800 rounded"
         />
-        <Search
-          className="bg-red-700 size-6 border border-white rounded-md cursor-pointer hover:bg-red-600"
-          onClick={handleSearch}
-        />
+        <span className="bg-red-700 p-2 border border-white rounded-md cursor-pointer hover:bg-red-600">
+          <Search size={22} onClick={handleSearch} />
+        </span>
       </div>
       {loading === true ? (
         <div className="flex justify-center items-center w-full h-screen  ">
