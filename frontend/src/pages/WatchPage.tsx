@@ -36,7 +36,7 @@ const WatchPage = () => {
   const [trailers, setTrailers] = useState<Trailer[]>([]);
   const [currentTrailerIdx, setCurrentTrailerIdx] = useState(0);
   const [loading, setLoading] = useState<boolean>(true);
-  const [contentDetails, setContentDetails] = useState<null | contentDetails>(
+  const [contentDetails, setContentDetails] = useState<contentDetails | null>(
     {},
   );
   const [similarContent, setSimilarContent] = useState<similarContentItem[]>(
@@ -92,7 +92,8 @@ const WatchPage = () => {
     const getSimilarContent = async () => {
       try {
         const response = await axios.get(`/api/${contentType}/${id}/similar`);
-        setSimilarContent(response.data?.content?.results);
+        console.log(response);
+        setSimilarContent(response.data?.content);
       } catch (error: any) {
         if (error.message.includes("404")) {
           setSimilarContent([]);

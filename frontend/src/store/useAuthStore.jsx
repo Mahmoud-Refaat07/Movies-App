@@ -23,7 +23,7 @@ const useAuthStore = create((set) => ({
     set({ loading: true });
     try {
       const response = await axiosInstance.post("/auth/signup", userData);
-      set({ loading: false, user: response.data.user });
+      set({ loading: false, user: response.data?.user });
       toast.success("User created successfully");
     } catch (error) {
       set({ loading: false, user: null });

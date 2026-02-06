@@ -10,6 +10,7 @@ import { useEffect } from "react";
 import WatchPage from "./pages/WatchPage";
 import useAuthStore from "./store/useAuthStore";
 import SearchPage from "./pages/SearchPage";
+import SearchHistoryPage from "./pages/SearchHistoryPage";
 
 const App = () => {
   const { user, checkAuth } = useAuthStore();
@@ -33,6 +34,10 @@ const App = () => {
         <Route
           path="/watch/:id"
           element={user ? <WatchPage /> : <LoginPage />}
+        />{" "}
+        <Route
+          path="/history"
+          element={user ? <SearchHistoryPage /> : <LoginPage />}
         />
         <Route path="/search" element={user ? <SearchPage /> : <LoginPage />} />
       </Routes>
