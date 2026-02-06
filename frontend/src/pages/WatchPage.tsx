@@ -93,7 +93,7 @@ const WatchPage = () => {
       try {
         const response = await axios.get(`/api/${contentType}/${id}/similar`);
         console.log(response);
-        setSimilarContent(response.data?.content);
+        setSimilarContent(response.data?.content.results);
       } catch (error: any) {
         if (error.message.includes("404")) {
           setSimilarContent([]);
@@ -241,7 +241,7 @@ const WatchPage = () => {
             />
           </motion.div>
         </div>
-        {similarContent.length > 0 && (
+        {Array.isArray(similarContent) && similarContent.length > 0 && (
           <div
             className="mx-auto max-w-6xl mt-12 relative"
             onMouseEnter={() => {
@@ -272,6 +272,7 @@ const WatchPage = () => {
                     to={`/watch/${item.id}`}
                     key={item.id}
                     className="w-52 flex-none"
+                    onClick={() => location.reload()}
                   >
                     <img
                       src={SMALL_IMAGE_BASE_URL + item.poster_path}

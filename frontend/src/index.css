@@ -7,6 +7,13 @@
   background-repeat: no-repeat;
 }
 
+.error404-bg {
+  background: url("404.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
 .shimmer {
   animation: shimmer 2s infinite linear;
   background: linear-gradient(to right, #2c2c2c 4%, #333 25%, #2c2c2c 36%);

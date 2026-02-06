@@ -11,6 +11,7 @@ import WatchPage from "./pages/WatchPage";
 import useAuthStore from "./store/useAuthStore";
 import SearchPage from "./pages/SearchPage";
 import SearchHistoryPage from "./pages/SearchHistoryPage";
+import Error404Page from "./pages/Error404Page";
 
 const App = () => {
   const { user, checkAuth } = useAuthStore();
@@ -40,6 +41,7 @@ const App = () => {
           element={user ? <SearchHistoryPage /> : <LoginPage />}
         />
         <Route path="/search" element={user ? <SearchPage /> : <LoginPage />} />
+        <Route path="/*" element={<Error404Page />} />
       </Routes>
       <Footer />
       <div>
