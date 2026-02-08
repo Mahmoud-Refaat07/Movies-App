@@ -19,8 +19,10 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(
   cors({
-    origin: "http://localhost:5173",
-    credentials: true,
+    origin:
+      ENV_VARS.NODE_ENV === "production"
+        ? "https://movies-app-production-3c25.up.railway.app"
+        : "http://localhost:5173",
   }),
 );
 
