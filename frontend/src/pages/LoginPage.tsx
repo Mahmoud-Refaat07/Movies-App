@@ -22,12 +22,14 @@ const LoginPage = () => {
   return (
     <div className="hero-bg h-screen w-full">
       <header className="flex justify-between mx-auto w-full max-w-6xl p-4">
-        <img
-          src="/netflix-logo.png"
-          alt="logo"
-          className="w-54"
-          loading="lazy"
-        />
+        <Link to="/">
+          <img
+            src="/netflix-logo.png"
+            alt="logo"
+            className="w-54"
+            loading="lazy"
+          />
+        </Link>
       </header>
       <div className="flex items-center justify-center mt-20">
         <motion.div
