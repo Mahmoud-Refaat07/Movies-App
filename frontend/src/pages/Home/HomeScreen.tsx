@@ -43,6 +43,7 @@ const HomeScreen = () => {
           onLoad={() => {
             setImgLoading(false);
           }}
+          loading="lazy"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 3 }}
@@ -87,7 +88,7 @@ const HomeScreen = () => {
             </Link>
 
             <Link
-              to={`/info/${trendingContent?.id}`}
+              to={`/watch/${trendingContent?.id}`}
               className="bg-gray-500/70 hover:bg-gray-500 text-white py-2 px-4 rounded 
             flex items-center"
             >

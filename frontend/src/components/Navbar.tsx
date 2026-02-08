@@ -23,7 +23,12 @@ const Navbar = () => {
     <header className="flex flex-wrap justify-between items-center max-w-6xl mx-auto p-4 h-20">
       <div className="flex gap-10 items-center z-50">
         <Link to="/">
-          <img src="/netflix-logo.png" alt="Logo" className="w-32 sm:w-40" />
+          <img
+            src="/netflix-logo.png"
+            alt="Logo"
+            className="w-32 sm:w-40"
+            loading="lazy"
+          />
         </Link>
 
         {/* Desktop navbar items */}
@@ -56,6 +61,7 @@ const Navbar = () => {
           src={user.image}
           alt="Avatar"
           className="h-8 rounded cursor-pointer"
+          loading="lazy"
         />
         <LogOut className="size-6 cursor-pointer" onClick={logoutFuncion} />
         <div className="sm:hidden">

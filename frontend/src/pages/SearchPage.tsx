@@ -117,7 +117,8 @@ const SearchPage = () => {
                         <img
                           src={ORIGINAL_IMAGE_BASE_URL + item.backdrop_path}
                           alt="poster"
-                          className="flex-none max-w-96 h-100 object-cover  hover:scale-103 transition-transform duration-300 cursor-pointer "
+                          className="flex-none max-w-96 h-100 object-cover  hover:scale-103 transition-transform duration-300 cursor-pointer"
+                          loading="lazy"
                         />
                       </div>
 
@@ -139,6 +140,7 @@ const SearchPage = () => {
                             src={ORIGINAL_IMAGE_BASE_URL + item.backdrop_path}
                             alt="poster"
                             className="flex-none max-w-96 h-100 object-cover rounded-md hover:scale-103 transition-transform duration-300 cursor-pointer bg-gray-800 px-4 py-8"
+                            loading="lazy"
                           />
                         </div>
 
@@ -159,6 +161,7 @@ const SearchPage = () => {
                             src={ORIGINAL_IMAGE_BASE_URL + item.profile_path}
                             alt="poster"
                             className="flex-none max-w-96 h-100 object-cover rounded-md hover:scale-103 transition-transform duration-300 cursor-pointer bg-gray-800 px-4 py-8"
+                            loading="lazy"
                           />
                         </div>
 

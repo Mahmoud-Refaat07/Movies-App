@@ -15,7 +15,12 @@ const AuthScreen = () => {
     <div className="relative hero-bg ">
       {/* NavBar Section */}
       <header className="max-w-6xl mx-auto flex items-center justify-between p-4 pb-10">
-        <img src="/netflix-logo.png" alt="logo" className="w-32 md:w-52" />
+        <img
+          src="/netflix-logo.png"
+          alt="logo"
+          className="w-32 md:w-52"
+          loading="lazy"
+        />
         <Link to={"/login"} className="text-white bg-red-700 py-1 px-2 rounded">
           Sign In
         </Link>
@@ -103,7 +108,12 @@ const AuthScreen = () => {
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
           >
-            <img src="/tv.png" alt="Tv image" className="mt-4 z-20 relative " />
+            <img
+              src="/tv.png"
+              alt="Tv image"
+              className="mt-4 z-20 relative "
+              loading="lazy"
+            />
             <video
               className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-1/1.5 z-10 "
               playsInline
@@ -133,6 +143,7 @@ const AuthScreen = () => {
                 src="stranger-things-lg.png"
                 alt="stranger things img"
                 className="mt-4"
+                loading="lazy"
               />
               <div
                 className="flex items-center gap-2 absolute bottom-5 left-1/2 -translate-x-1/2 bg-black 
@@ -142,6 +153,7 @@ const AuthScreen = () => {
                   src="/stranger-things-sm.png"
                   alt="stranger things"
                   className="h-full"
+                  loading="lazy"
                 />
                 <div className="flex justify-between items-center w-full">
                   <div className="flex flex-col gap-0">
@@ -208,6 +220,7 @@ const AuthScreen = () => {
               src="/device-pile.png"
               alt="Device image"
               className="mt-4 z-20 relative "
+              loading="lazy"
             />
             <video
               className="absolute top-2 left-1/2 -translate-x-1/2  h-4/6 z-10 
@@ -235,7 +248,12 @@ const AuthScreen = () => {
             viewport={{ once: false }}
           >
             <div className="relative">
-              <img src="kids.png" alt="stranger things img" className="mt-4" />
+              <img
+                src="kids.png"
+                alt="stranger things img"
+                className="mt-4"
+                loading="lazy"
+              />
             </div>
           </motion.div>
           <motion.div

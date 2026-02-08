@@ -1,8 +1,8 @@
 import axios from "axios";
 import Navbar from "../components/Navbar";
 import useContentStore from "../store/useContentStore";
-import ReactPlayer from "react-player";
 import WatchPageSkeleton from "../components/WatchPageSkeleton";
+
 import { Link, useLocation, useParams } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
@@ -12,6 +12,9 @@ import {
 } from "../utils/constants";
 import { motion } from "framer-motion";
 import { formatReleaseDate } from "../utils/dateFormat";
+import { lazy, Suspense } from "react";
+
+const ReactPlayer = lazy(() => import("react-player"));
 
 interface contentDetails {
   title?: string;
@@ -89,22 +92,6 @@ const WatchPage = () => {
   }, [contentType, id]);
 
   useEffect(() => {
-    const getSimilarContent = async () => {
-      try {
-        const response = await axios.get(`/api/${contentType}/${id}/similar`);
-        setSimilarContent(response.data?.content.results);
-      } catch (error: any) {
-        if (error.message.includes("404")) {
-          setSimilarContent([]);
-        }
-      } finally {
-        setLoading(false);
-      }
-    };
-    getSimilarContent();
-  }, [contentType, id]);
-
-  useEffect(() => {
     const getContentDetails = async () => {
       try {
         const response = await axios.get(`/api/${contentType}/${id}/details`);
@@ -118,6 +105,22 @@ const WatchPage = () => {
       }
     };
     getContentDetails();
+  }, [contentType, id]);
+
+  useEffect(() => {
+    const getSimilarContent = async () => {
+      try {
+        const response = await axios.get(`/api/${contentType}/${id}/similar`);
+        setSimilarContent(response.data?.content.results);
+      } catch (error: any) {
+        if (error.message.includes("404")) {
+          setSimilarContent([]);
+        }
+      } finally {
+        setLoading(false);
+      }
+    };
+    getSimilarContent();
   }, [contentType, id]);
 
   useEffect(() => {
@@ -186,16 +189,20 @@ const WatchPage = () => {
         )}
 
         <div className="aspect-video mb-8 p-2 sm:px-10 md:px-32">
-          {trailers.length > 0 && (
-            <ReactPlayer
-              src={`https://www.youtube.com/watch?v=${trailers[currentTrailerIdx]?.key}`}
-              //   playing
-              controls
-              width="100%"
-              height="70vh"
-              className="mx-auto rounded-lg overflow-hidden"
-            />
-          )}
+          <Suspense
+            fallback={<div className="h-64 bg-gray-800 animate-pulse" />}
+          >
+            {trailers.length > 0 && (
+              <ReactPlayer
+                src={`https://www.youtube.com/watch?v=${trailers[currentTrailerIdx]?.key}`}
+                //   playing
+                controls
+                width="100%"
+                height="70vh"
+                className="mx-auto rounded-lg overflow-hidden"
+              />
+            )}
+          </Suspense>
           {trailers.length === 0 && (
             <h2 className="text-xl text-center mt-5">
               No trailers available for .
@@ -236,7 +243,8 @@ const WatchPage = () => {
             <img
               src={ORIGINAL_IMAGE_BASE_URL + contentDetails?.poster_path}
               alt="poster"
-              className="max-h-150 rounded-md "
+              className="max-h-150 rounded-md"
+              loading="lazy"
             />
           </motion.div>
         </div>
@@ -276,6 +284,7 @@ const WatchPage = () => {
                       src={SMALL_IMAGE_BASE_URL + item.poster_path}
                       alt="poster"
                       className="w-full h-auto rounded-md"
+                      loading="lazy"
                     />
                     <h4 className="mt-2 text-lg font-semibold">
                       {item.title || item.name}{" "}

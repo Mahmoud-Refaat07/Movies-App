@@ -85,7 +85,8 @@ const MovieSlider = ({ category }: categoryProps) => {
               <img
                 src={SMALL_IMAGE_BASE_URL + item.backdrop_path}
                 alt="movie image"
-                className="transition-transform duration-300 ease-in-out group-hover:scale-125 "
+                className="transition-transform duration-300 ease-in-out group-hover:scale-125"
+                loading="lazy"
               />
             </motion.div>
             <motion.p

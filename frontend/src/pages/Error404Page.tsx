@@ -7,7 +7,12 @@ const Error404Page = () => {
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(0,0,0,0.200),rgba(0,0,0,0.9),rgba(0,0,0,1))]" />
       <header className="absolute top-0 left-0 p-4 bg-black w-full">
         <Link to={"/"}>
-          <img src="/netflix-logo.png" alt="logo" className="h-8" />
+          <img
+            src="/netflix-logo.png"
+            alt="logo"
+            className="h-8"
+            loading="lazy"
+          />
         </Link>
       </header>
       <motion.div

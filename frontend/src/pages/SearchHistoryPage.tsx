@@ -68,6 +68,7 @@ const SearchHistoryPage = () => {
                 src={SMALL_IMAGE_BASE_URL + item.image}
                 alt="Image"
                 className="size-16 rounded-full object-cover mr-4"
+                loading="lazy"
               />
               <div className="flex flex-col">
                 <span className="text-white text-lg">{item.title}</span>
