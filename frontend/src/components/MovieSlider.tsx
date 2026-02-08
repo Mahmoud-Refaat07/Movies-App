@@ -1,5 +1,5 @@
 import axios from "axios";
-import useContentStore from "../store/useContentStore.js";
+import useContentStore from "../store/useContentStore";
 
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
@@ -22,7 +22,7 @@ const MovieSlider = ({ category }: categoryProps) => {
   const [content, setContent] = useState<[]>([]);
   const [showArrors, setShowArrors] = useState<boolean>(false);
 
-  const { contentType } = useContentStore();
+  const { contentType } = useContentStore() as { contentType: string };
   const sliderRef = useRef<HTMLDivElement>(null);
 
   const formattedCategoryName =
