@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useState } from "react";
 
-import useAuthStore from "../store/useAuthStore.js";
+import useAuthStore from "../store/useAuthStore";
 import Button from "../components/Button";
 import Input from "../components/Input";
 

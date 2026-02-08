@@ -6,17 +6,16 @@ import {
   ORIGINAL_IMAGE_BASE_URL,
   MOVIE_CATEGORIES,
   TV_SERIES_CATEGORIES,
-} from "../../utils/constants";
+} from "../../utils/constants.js";
 import { motion } from "framer-motion";
 
 import Navbar from "../../components/Navbar";
-import useContentStore from "../../store/useContentStore.js";
+import useContentStore from "../../store/useContentStore.ts";
 import MovieSlider from "../../components/MovieSlider";
 
 const HomeScreen = () => {
   const { trendingContent } = useGetTrendingContent();
-  const { contentType } = useContentStore();
-
+  const { contentType } = useContentStore() as { contentType: string };
   const [imgLoading, setImgLoading] = useState<boolean>(true);
 
   if (!trendingContent) {
@@ -68,13 +67,14 @@ const HomeScreen = () => {
             </h1>
             <p className="mt-2 text-lg">
               {trendingContent?.release_date?.split("-")[0] ||
-                trendingContent?.first_air_date.split("-")[0]}{" "}
+                trendingContent?.first_air_date?.split("-")[0]}{" "}
               {trendingContent?.adult ? "16+" : "PG-13"}
             </p>
 
             <p className="mt-4 text-lg">
-              {trendingContent?.overview > 200
-                ? trendingContent?.overview.slice(0, 200) + "..."
+              {trendingContent?.overview &&
+              trendingContent?.overview.length > 200
+                ? trendingContent?.overview?.slice(0, 200) + "..."
                 : trendingContent?.overview}
             </p>
           </div>

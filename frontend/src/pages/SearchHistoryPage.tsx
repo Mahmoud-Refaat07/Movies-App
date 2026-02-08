@@ -2,8 +2,8 @@ import axios from "axios";
 import Navbar from "../components/Navbar";
 import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
-import { SMALL_IMAGE_BASE_URL } from "../utils/constants";
-import { formatReleaseDate } from "../utils/dateFormat";
+import { SMALL_IMAGE_BASE_URL } from "../utils/constants.ts";
+import { formatReleaseDate } from "../utils/dateFormat.ts";
 import { Trash } from "lucide-react";
 
 interface SearchHistoryItem {
@@ -21,7 +21,8 @@ const SearchHistoryPage = () => {
     try {
       await axios.delete(`/api/search/history/${id}`);
       setSearchHistory(searchHistory.filter((item) => item.id !== id));
-    } catch (error: any) {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (error: unknown) {
       toast.error("Failed to delete search history item");
     }
   };
@@ -31,8 +32,12 @@ const SearchHistoryPage = () => {
       try {
         const response = await axios.get("/api/search/history");
         setSearchHistory(response.data.content);
-      } catch (error: any) {
-        toast.error(error.message);
+      } catch (error: unknown) {
+        const errorMessage =
+          error instanceof Error
+            ? error.message
+            : "Failed to fetch search history";
+        toast.error(errorMessage);
         setSearchHistory([]);
       }
     };

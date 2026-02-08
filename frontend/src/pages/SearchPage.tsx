@@ -3,7 +3,7 @@ import Navbar from "../components/Navbar";
 
 import { useState } from "react";
 import { Loader, Search } from "lucide-react";
-import { ORIGINAL_IMAGE_BASE_URL } from "../utils/constants";
+import { ORIGINAL_IMAGE_BASE_URL } from "../utils/constants.ts";
 import { Link } from "react-router-dom";
 import { toast } from "react-hot-toast";
 
@@ -36,8 +36,12 @@ const SearchPage = () => {
         if (category === "movie") setSearchedMovies(response.data.content);
         if (category === "tv") setSearchedTvShows(response.data.content);
         if (category === "person") setSearchedPeople(response.data.content);
-      } catch (error: any) {
-        if (error.response && error.response.status === 404) {
+      } catch (error: unknown) {
+        if (
+          axios.isAxiosError(error) &&
+          error.response &&
+          error.response.status === 404
+        ) {
           toast.error("No results found.");
         } else {
           toast.error("An error occurred while fetching data.");

@@ -5,7 +5,7 @@ interface ButtonProps {
 
 import { Loader } from "lucide-react";
 
-import useAuthStore from "../store/useAuthStore.js";
+import useAuthStore from "../store/useAuthStore";
 
 const Button = ({ content }: ButtonProps) => {
   const { loading } = useAuthStore();

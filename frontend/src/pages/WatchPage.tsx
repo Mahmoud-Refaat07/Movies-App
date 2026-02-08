@@ -1,6 +1,6 @@
 import axios from "axios";
 import Navbar from "../components/Navbar";
-import useContentStore from "../store/useContentStore.js";
+import useContentStore from "../store/useContentStore";
 import WatchPageSkeleton from "../components/WatchPageSkeleton.jsx";
 
 import { Link, useLocation, useParams } from "react-router-dom";
@@ -9,9 +9,9 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import {
   ORIGINAL_IMAGE_BASE_URL,
   SMALL_IMAGE_BASE_URL,
-} from "../utils/constants";
+} from "../utils/constants.js";
 import { motion } from "framer-motion";
-import { formatReleaseDate } from "../utils/dateFormat";
+import { formatReleaseDate } from "../utils/dateFormat.js";
 import { lazy, Suspense } from "react";
 
 const ReactPlayer = lazy(() => import("react-player"));
@@ -47,7 +47,7 @@ const WatchPage = () => {
   );
   const [showArrors, setShowArrors] = useState<boolean>(false);
   const { id } = useParams();
-  const { contentType } = useContentStore();
+  const { contentType } = useContentStore() as { contentType: string };
   const { pathname } = useLocation();
   const sliderRef = useRef<HTMLDivElement>(null);
 
@@ -227,7 +227,8 @@ const WatchPage = () => {
               <p className="mt-2 text-lg">
                 {formatReleaseDate(
                   contentDetails?.release_date ||
-                    contentDetails?.first_air_date,
+                    contentDetails?.first_air_date ||
+                    "",
                 )}{" "}
                 |{" "}
                 {contentDetails?.adult ? (
@@ -259,7 +260,7 @@ const WatchPage = () => {
             <h2 className="text-3xl font-bold mb-4">
               Similar{" "}
               {contentType === "movie"
-                ? contentType.charAt().toUpperCase() +
+                ? contentType.charAt(0).toUpperCase() +
                   contentType.slice(1) +
                   "s"
                 : "TV Shows"}

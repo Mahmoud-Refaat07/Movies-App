@@ -1,13 +1,15 @@
 import { LogOut, Menu, Search } from "lucide-react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import useAuthStore from "../store/useAuthStore.js";
-import useContentStore from "../store/useContentStore.js";
+import useAuthStore from "../store/useAuthStore";
+import useContentStore from "../store/useContentStore";
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { user, logout } = useAuthStore();
-  const { setContentType } = useContentStore();
+  const { setContentType } = useContentStore() as {
+    setContentType: (type: string) => void;
+  };
 
   const navigate = useNavigate();
   const logoutFuncion = async () => {
@@ -57,12 +59,14 @@ const Navbar = () => {
         <Link to={"/search"}>
           <Search className="size-6 cursor-pointer" />
         </Link>
-        <img
-          src={user.image}
-          alt="Avatar"
-          className="h-8 rounded cursor-pointer"
-          loading="lazy"
-        />
+        {user && (
+          <img
+            src={user.image}
+            alt="Avatar"
+            className="h-8 rounded cursor-pointer"
+            loading="lazy"
+          />
+        )}
         <LogOut className="size-6 cursor-pointer" onClick={logoutFuncion} />
         <div className="sm:hidden">
           <Menu className="size-6 cursor-pointer" onClick={toggleMobileMenu} />

@@ -3,7 +3,7 @@ import useContentStore from "../store/useContentStore.js";
 
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { SMALL_IMAGE_BASE_URL } from "../utils/constants";
+import { SMALL_IMAGE_BASE_URL } from "../utils/constants.js";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { motion } from "framer-motion";
 

@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useState } from "react";
 
-import useAuthStore from "../store/useAuthStore.js";
+import useAuthStore from "../store/useAuthStore";
 import Input from "../components/Input";
 import Button from "../components/Button";
 
@@ -12,7 +12,7 @@ const LoginPage = () => {
     password: "",
   });
 
-  const { login, loading } = useAuthStore();
+  const { login } = useAuthStore();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
