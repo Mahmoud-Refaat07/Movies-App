@@ -1,12 +1,11 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
+import { useEffect } from "react";
 
 import HomePage from "./pages/Home/HomePage";
 import LoginPage from "./pages/LoginPage";
 import SignUpPage from "./pages/SignUpPage";
 import Footer from "./components/Footer";
-
-import { useEffect } from "react";
 import WatchPage from "./pages/WatchPage";
 import useAuthStore from "./store/useAuthStore";
 import SearchPage from "./pages/SearchPage";

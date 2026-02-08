@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import Input from "../components/Input";
-import Button from "../components/Button";
 import { useState } from "react";
 import useAuthStore from "../store/useAuthStore";
+import Button from "../components/Button";
+import Input from "../components/Input";
 
 const SignupPage = () => {
   const { searchParams } = new URL(document.location.href);

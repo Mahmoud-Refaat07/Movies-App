@@ -1,17 +1,17 @@
 import axios from "axios";
-import { useEffect, useRef, useState } from "react";
-import { Link, useLocation, useParams } from "react-router-dom";
-import useContentStore from "../store/useContentStore";
 import Navbar from "../components/Navbar";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import useContentStore from "../store/useContentStore";
 import ReactPlayer from "react-player";
+import WatchPageSkeleton from "../components/WatchPageSkeleton";
+import { Link, useLocation, useParams } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import {
   ORIGINAL_IMAGE_BASE_URL,
   SMALL_IMAGE_BASE_URL,
 } from "../utils/constants";
 import { motion } from "framer-motion";
 import { formatReleaseDate } from "../utils/dateFormat";
-import WatchPageSkeleton from "../components/WatchPageSkeleton";
 
 interface contentDetails {
   title?: string;
@@ -92,7 +92,6 @@ const WatchPage = () => {
     const getSimilarContent = async () => {
       try {
         const response = await axios.get(`/api/${contentType}/${id}/similar`);
-        console.log(response);
         setSimilarContent(response.data?.content.results);
       } catch (error: any) {
         if (error.message.includes("404")) {
@@ -272,7 +271,6 @@ const WatchPage = () => {
                     to={`/watch/${item.id}`}
                     key={item.id}
                     className="w-52 flex-none"
-                    onClick={() => location.reload()}
                   >
                     <img
                       src={SMALL_IMAGE_BASE_URL + item.poster_path}

@@ -1,16 +1,16 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
-import Navbar from "../../components/Navbar";
-import { Info, Play, Loader } from "lucide-react";
+import { Info, Play } from "lucide-react";
 import useGetTrendingContent from "../../hooks/useGetTrendingContent";
 import {
   ORIGINAL_IMAGE_BASE_URL,
   MOVIE_CATEGORIES,
   TV_SERIES_CATEGORIES,
 } from "../../utils/constants";
+import { motion } from "framer-motion";
+import Navbar from "../../components/Navbar";
 import useContentStore from "../../store/useContentStore";
 import MovieSlider from "../../components/MovieSlider";
-import { useState } from "react";
-import { motion } from "framer-motion";
 
 const HomeScreen = () => {
   const { trendingContent } = useGetTrendingContent();

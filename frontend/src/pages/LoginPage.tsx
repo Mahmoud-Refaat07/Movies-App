@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
-import Button from "../components/Button";
-import Input from "../components/Input";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import useAuthStore from "../store/useAuthStore";
+import Input from "../components/Input";
+import Button from "../components/Button";
 
 const LoginPage = () => {
   const [userData, setUserData] = useState({

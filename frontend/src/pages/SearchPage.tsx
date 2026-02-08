@@ -1,7 +1,8 @@
-import { useState } from "react";
-import Navbar from "../components/Navbar";
-import { Loader, Search } from "lucide-react";
 import axios from "axios";
+import Navbar from "../components/Navbar";
+
+import { useState } from "react";
+import { Loader, Search } from "lucide-react";
 import { ORIGINAL_IMAGE_BASE_URL } from "../utils/constants";
 import { Link } from "react-router-dom";
 import { toast } from "react-hot-toast";
