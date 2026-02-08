@@ -8,8 +8,9 @@ import {
   TV_SERIES_CATEGORIES,
 } from "../../utils/constants";
 import { motion } from "framer-motion";
+
 import Navbar from "../../components/Navbar";
-import useContentStore from "../../store/useContentStore";
+import useContentStore from "../../store/useContentStore.js";
 import MovieSlider from "../../components/MovieSlider";
 
 const HomeScreen = () => {

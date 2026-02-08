@@ -1,7 +1,7 @@
 import axios from "axios";
 import Navbar from "../components/Navbar";
-import useContentStore from "../store/useContentStore";
-import WatchPageSkeleton from "../components/WatchPageSkeleton";
+import useContentStore from "../store/useContentStore.js";
+import WatchPageSkeleton from "../components/WatchPageSkeleton.jsx";
 
 import { Link, useLocation, useParams } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
