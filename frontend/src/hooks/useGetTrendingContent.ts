@@ -18,8 +18,6 @@ const useGetTrendingContent = () => {
   const [trendingContent, setTrendingContent] =
     useState<TrendingContentItem | null>(null);
 
-  console.log(trendingContent);
-
   const { contentType } = useContentStore() as { contentType: string };
 
   useEffect(() => {
