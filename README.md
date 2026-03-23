@@ -29,7 +29,7 @@
 | Cookie Parser | Cookie Handling |
 | CORS | Cross-Origin Requests |
 | Dotenv | Environment Variables |
-| Stripe | Payment Integration |
+
 
 ---
 
