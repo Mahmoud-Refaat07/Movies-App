@@ -1,5 +1,6 @@
 @import "tailwindcss";
-@import "tailwind-scrollbar-hide/v4";
+
+@plugin "tailwind-scrollbar-hide";
 
 .hero-bg {
   background-image:
