@@ -13,10 +13,9 @@
 | Zustand | State Management |
 | Axios | HTTP Requests |
 | Framer Motion | Animations |
-| Recharts | Charts & Analytics |
 | React Hot Toast | Notifications |
 | Lucide React | Icons |
-| Stripe JS | Payment UI |
+
 
 ### Backend
 | Technology | Purpose |
@@ -42,22 +41,12 @@
 - Protected Routes
 - Admin Authorization
 
-### 🎬 Netflix Clone
+### 🎬 Flixora 
 - Browse Movies
 - Movie Details Page
 - Watch Trailer
 - Responsive UI
 - Animations with Framer Motion
-
-### 🛒 E-Commerce Platform
-- Product & Category Management
-- Shopping Cart
-- Checkout System
-- Stripe Payment Integration
-- Coupon / Discount System
-- Order Management
-- Admin Dashboard with Analytics
-- Sales Charts (Recharts)
 
 ---
 
