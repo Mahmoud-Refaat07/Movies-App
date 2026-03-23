@@ -113,28 +113,6 @@ STRIPE_SECRET_KEY=your_stripe_secret
 CLIENT_URL=http://localhost:5173
 ```
 
----
-
-## 📸 Screenshots
-
-> Screenshots coming soon...
-
-| Home | Dashboard | Checkout |
-|------|-----------|----------|
-| ![Home](screenshots/home.png) | ![Dashboard](screenshots/dashboard.png) | ![Checkout](screenshots/checkout.png) |
-
----
-
-## 📈 Future Improvements
-
-- [ ] Add Wishlist Feature
-- [ ] Add Product Reviews
-- [ ] Add Email Notifications
-- [ ] Add Docker Deployment
-- [ ] Add CI/CD Pipeline
-
----
-
 ## 👨‍💻 Author
 
 **Mahmoud Refaat**
